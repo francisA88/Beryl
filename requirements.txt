@@ -1,0 +1,5 @@
+django==4.0.*
+whitenoise
+Pillow
+BeautifulSoup4
+python-dotenv

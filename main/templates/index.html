@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{%static 'css/bulma.min.css' %}">
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{%static 'images/beryl_icon_g.png' %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0">
+    <meta name="theme-color" content="#000e2fff">
+    <title>Beryl</title>
+</head>
+<body>
+    <div id="rect"></div>
+    <header>
+        <div id="header-links">
+            <a href="#about" class="header-link">About</a>
+        </div>
+        <div class="logo-cntr">
+            <img id="logo" src="{%static 'images/beryl_logo_g.png' %}"><h2>ERYL</h2>
+        </div>
+        <p class="about">Searching for Solutions.</p>
+    </header>
+    <br/>
+    <div class="container title-parent">
+        <h5>How to use:</h5>
+        <span class="txt1">Get started by clicking the button below to choose an image file.</span>
+        <span class="txt2">Hold left-click and drag on the preview to select a portion of your image to search.</span>
+    </div>
+    <main class="columns">
+        <div class="for-image column is-two-thirds">
+            <div class="img-container">
+                <img id="loaded-image" class="image">
+            </div>
+            <form method="POST" action="/process-image/">
+                {%csrf_token%}
+                <label for="iminput" class="button is-teal is-info is-outlined">
+                    Choose image
+                    <input id="iminput" name="iminput" type="file" accept=".png, .jpg, .jpeg" class="hidden" value="Select image file" required>
+                </label>
+                <input type="submit" value="SEARCH" class="button is-primary">
+            </form>
+            <button class="button is-outlined is-hidden-desktop" style="margin-top: 5px;">CROP</button>
+            
+        </div>
+        <div class="for-results column">
+            <span id="image-text"></span><br>
+            <span class="is-large"><b>Results:</b></span>
+            <ul class="url-results">
+                <div><b>None Yet. Please search for something.</b></div>
+                <!-- <li><b>-</b><a> xxxx</a></li> -->
+            </ul>
+        </div>   
+    </main>
+    <aside id="about">
+        <h3>About Beryl</h3>
+        <br>
+        <p>Beryl was created with the student in mind. It is intended to help students, especially at the tertiary level, by providing a way to easily search for solutions to past questions which may already exist out there on the Internet by simply supplying an image of a past question.</p>
+        <br>
+        <p>Beryl makes use of a powerful OCR (Optical Character Recognition) API to extract text from whatever image supplied. This extracted text is then searched on the Internet, focusing mainly on websites known to supply solved questions from experts like <strong>Chegg</strong>, <strong>Testbook</strong>, and more. Note that it can also be used to search for any text from any image aside from past questions.</p>
+        <br>
+        <p><strong>A helpful tip -</strong> For best results, search using smaller sections of text rather than long texts.</p>
+    </aside>
+    <footer class="container">
+        <p class="fbck">Didn't get good results? mail me a feedback at <a href='mailto:francisali692@gmail.com'>francisali692@gmail.com</a>.</p>
+        <br>
+        <p>Follow me on Twitter at <a href="https://twitter.com/IlaSicnarf">@IlaSicnarf</a>!</p>
+        <br>
+        <div class="footer-content">
+            <span><b><i>Created By Francis.</i></b></span>
+        </div>
+    </footer>
+    <div class="notification is-danger is-light hidden">
+        <button class="delete"></button>
+        <strong>Error:</strong> Something went wrong. Please Check your internet connection.
+    </div>
+    <script src="{%static 'js/cropper_overlay.js' %}"></script>
+    <script src="{%static 'js/main.js' %}"></script>
+</body>
+</html>
