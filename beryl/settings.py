@@ -26,10 +26,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 SECRET_KEY = 'django-insecure-(al%5375_3)16isrw2m=086d-d_0a+#bpsq(!#&gp3eiz5rh()'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-HOST_DOMAIN_NAME = os.getenv('HOST_DOMAIN_NAME')
-ALLOWED_HOSTS = [HOST_DOMAIN_NAME, '127.0.0.1']
+#HOST_DOMAIN_NAME = os.getenv('HOST_DOMAIN_NAME')
+ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1']
 
 
 # Application definition
@@ -123,12 +123,12 @@ APPEND_SLASH = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
-    # in your application directory on Render.
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Turn on WhiteNoise storage backend that takes care of compressing static files
-    # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
+# in your application directory on Render.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Turn on WhiteNoise storage backend that takes care of compressing static files
+# and creating unique names for each version so they can safely be cached forever.
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
