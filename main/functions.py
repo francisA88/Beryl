@@ -16,20 +16,27 @@ def search_for_results(query):
         'testbook.com',
     ]
     all_results = []
+    texts = set()
+    session = requests.Session()
     for site in known_sites:
         try:
             url = f'https://www.google.com/search?q={query}+site={site}' if site else f'https://www.google.com/search?q={query}'
-            session = requests.Session()
             response = session.get(url)
             soup = bs4.BeautifulSoup(response.text, 'html.parser')
             results = soup.find_all('h3')
-            results = [{'text': res.text, 
+            # results = [{'text': res.text, 
+            #             'link': 'https://www.google.com' + res.parent.parent.parent.attrs['href']
+            #             }
+            #             for res in results if res.text not in texts
+            #             ]
+
+            for res in results:
+                if res.text not in texts:
+                    all_results.append({
+                        'text': res.text, 
                         'link': 'https://www.google.com' + res.parent.parent.parent.attrs['href']
-                        }
-                        for res in results
-                        ]
-            
-            all_results.extend(results)
+                        })
+                texts.add(res.text)
         except:
             return 500
     return all_results
