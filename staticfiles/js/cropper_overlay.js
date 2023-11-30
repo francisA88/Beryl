@@ -1,14 +1,31 @@
 rect = document.querySelector('#rect');
-image = document.querySelector('#loaded-image')
+image = document.querySelector('#loaded-image');
+const cropButton = document.querySelector('.for-image button');
 
+console.log(cropButton)
 console.log(rect)
 let isDown = false
 touchdown = {x:null, y:null}
 
 let coord = [0, 0, 0, 0, 0];
 
-image.addEventListener('pointerdown', function(ev){  
-    console.log('hello') ;
+isCropping = false; 
+cropButton.addEventListener('click', function(e){
+    console.log(isCropping)
+    if (isCropping){
+        this.innerHTML = 'STOP CROPPING'
+        window.onscroll = (e)=> e.preventDefault();
+    }
+    else{
+        this.innerHTML = 'CROP';
+        window.onscroll = null;
+    }
+    isCropping ^= 1;
+    
+    console.log()
+})
+
+image.addEventListener('pointerdown', function(ev){
     isDown = true;
     touchdown.x = ev.clientX;
     touchdown.y = ev.clientY;
