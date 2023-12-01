@@ -24,11 +24,6 @@ def search_for_results(query):
             response = session.get(url)
             soup = bs4.BeautifulSoup(response.text, 'html.parser')
             results = soup.find_all('h3')
-            # results = [{'text': res.text, 
-            #             'link': 'https://www.google.com' + res.parent.parent.parent.attrs['href']
-            #             }
-            #             for res in results if res.text not in texts
-            #             ]
 
             for res in results:
                 if res.text not in texts:

@@ -1,36 +1,21 @@
-rect = document.querySelector('#rect');
-image = document.querySelector('#loaded-image');
+const rect = document.querySelector('#rect');
+const image = document.querySelector('#loaded-image');
 const cropButton = document.querySelector('.for-image button');
 
-console.log(cropButton)
-console.log(rect)
 let isDown = false
 touchdown = {x:null, y:null}
 
 let coord = [0, 0, 0, 0, 0];
 
-isCropping = false; 
-cropButton.addEventListener('click', function(e){
-    console.log(isCropping)
-    if (isCropping){
-        this.innerHTML = 'STOP CROPPING'
-        window.onscroll = (e)=> e.preventDefault();
-    }
-    else{
-        this.innerHTML = 'CROP';
-        window.onscroll = null;
-    }
-    isCropping ^= 1;
-    
-    console.log()
-})
+ismobile = ()=> window.innerWidth <= 1024
 
 image.addEventListener('pointerdown', function(ev){
+    if (!(ev.pointerType === 'mouse')) return;
     isDown = true;
     touchdown.x = ev.clientX;
     touchdown.y = ev.clientY;
-    rect.style.left = ev.clientX + 'px'
-    rect.style.top = ev.clientY + window.scrollY + 'px'
+    rect.style.left = `${ev.clientX}px`
+    rect.style.top = `${ev.clientY + window.scrollY}px`
     rect.style.width = 0;
     rect.style.height = 0;
     x = ev.layerX;
@@ -38,9 +23,9 @@ image.addEventListener('pointerdown', function(ev){
     coord[0] = x;
     coord[1] = y;
 })
-image.addEventListener('pointermove', function(ev){
-    console.log('helllo 1')
-    if (isDown){
+
+image.addEventListener('mousemove', function(ev){
+    if (isDown && !(ev.pointerType === 'mouse')){
         w = Math.abs(ev.layerX - x) + 'px';
         h = Math.abs(ev.layerY - y) + 'px';
         if (Math.abs(x - ev.layerX) > image.width || Math.abs(y - ev.layerY) > image.height) return;
@@ -67,7 +52,7 @@ image.addEventListener('pointermove', function(ev){
 document.onpointerup = ()=>{
     isDown = false;
     let imrect = image.getBoundingClientRect();
-    let rrect = rect.getBoundingClientRect();
+    let rrect = rect.getBoundingClientRect() ;
     //Coordinates relative to the displayed image's size.
     let relY = - imrect.top + rrect.top;
     let relX = rrect.left - imrect.left;

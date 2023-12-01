@@ -8,5 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('process-image/', views.process_image_from_frontend),
-    path('fetch-results/<str:query_string>', views.fetch_results),
+    path('fetch-results/', views.fetch_results),
 ]

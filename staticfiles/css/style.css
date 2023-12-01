@@ -178,7 +178,7 @@ footer {
   background-color: #000e2e;
   color: white; }
 
-#rect {
+#rect, #mobile-rect {
   border: solid 1.5px #ffffff;
   background-color: #8888;
   backdrop-filter: grayscale(100%);
@@ -187,5 +187,14 @@ footer {
   display: block !important;
   width: 0px;
   height: 0; }
+
+#c1, #c2 {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  box-shadow: 3px 3px #CCC;
+  display: block; }
 
 /*# sourceMappingURL=style.css.map */

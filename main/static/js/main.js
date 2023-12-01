@@ -27,7 +27,7 @@ form.addEventListener('submit', function(e){
     }).then((jsonRes)=>{
         console.log(jsonRes);
         if (jsonRes.status !== 200){
-            notify()
+            notify('Something went wrong.')
             return;
         }
         resultDisplay.innerHTML = `Searching For "${jsonRes.result.slice(0, 14)}..."`
@@ -44,12 +44,15 @@ form.addEventListener('submit', function(e){
                 urlResults.appendChild(li);
             }
         }).catch(err=> submitBtn.value = 'SEARCH')
-    })
+    }).catch(err=> submitBtn.value = 'SEARCH')
 })
 
-function notify(){
+function notify(msg){
     notification = document.querySelector('.notification')
     notification.classList.remove('hidden');
+    if (msg){
+        notification.innerText = msg;
+    }
     setTimeout(()=>notification.classList.add('hidden'), 2000);
 }
 
@@ -59,7 +62,14 @@ document.querySelectorAll('.notification .delete').forEach(el=>{
     })
 })
 async function searchWebForMatches(string){
-    let request = await fetch(`fetch-results/${string}`);
+    let request = await fetch(`fetch-results/`, {
+        method: 'POST',
+        headers:{
+            'content-type': 'application/text',
+            'X-CSRFToken': csrftoken
+        },
+        body: string
+    });
     let response = await request.json();
     return response;
 }
