@@ -53,10 +53,13 @@ def process_image_from_frontend(request):
     return JsonResponse({'result': extracted_text_from_image2, 'status': 200, 'err_msg': ''})
 
 def fetch_results(request):
-    query_string = request.body
+    query_string = request.body.decode()
     print('Query beans: ', query_string)
+    if not query_string.replace(' ',''):
+        return JsonResponse({'result': [], 'status': 200, 'err_msg': ''})
+    
     query_results = search_for_results(query_string)
     if query_results == 500:
-        return JsonResponse({'result': '', 'status': 500, 'err_msg': 'Something went wrong'})
+        return JsonResponse({'result': [], 'status': 500, 'err_msg': 'Something went wrong'})
     
     return JsonResponse({'result': query_results, 'status': 200, 'err_msg': ''})

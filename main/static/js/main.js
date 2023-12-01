@@ -36,7 +36,7 @@ form.addEventListener('submit', function(e){
             console.log('rEs: ', result)
             submitBtn.value = 'SEARCH'
             if (result.status !== 200) return notify('Oops, something went wrong');
-            resultDisplay.style.display = 'none';
+            // resultDisplay.style.display = 'none';
             urlResults.innerHTML = '';
             for (res of result.result){
                 li = document.createElement('li');
@@ -99,6 +99,7 @@ function getBase64Image(img) {
     canvas.height = img.naturalHeight;
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
+    console.log(img.src)
     var dataURL = canvas.toDataURL("image/png");
     return dataURL.replace(/^data:image\/?[A-z]*;base64,/, '');
   }
